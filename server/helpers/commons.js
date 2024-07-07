@@ -12,7 +12,7 @@ const utils = {
     },
 
     jwtToken(payload) {
-        const token = jwt.sign(payload, SECRET, {expiresIn: '24h'});
+        const token = jwt.sign(payload, SECRET, {expiresIn: '1h'});
         return token;
     },
 

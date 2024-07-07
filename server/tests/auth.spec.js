@@ -1,11 +1,12 @@
 const request = require('supertest');
-const {expect} = require('chai');
+const {expect, util} = require('chai');
+const jwt = require('jsonwebtoken');
 const utils = require('../helpers/commons');
 const server = require('../index');
 
 let userToken;
 
-describe('/POST Auth route', () => {
+describe('User Registration & Organisation Access', () => {
     before(done => {
         request(server)
         .post('/auth/login')
@@ -204,6 +205,31 @@ describe('/POST Auth route', () => {
           setTimeout(done, 5000);
         });
     });
+  });
+
+require('dotenv').config();
+
+  describe('Token Generation & Expiry', () => {
+    let oneHourFromNow = Math.floor(Date.now() / 1000) + (60 * 60);
+    it('It should not expire before an hour', (done) => {
+      jwt.verify(userToken, process.env.SECRET, {clockTimestamp: oneHourFromNow - 1}, (err, decoded) => {
+        expect(decoded).to.be.an('object');
+        expect(decoded.userId).to.be.ok;
+        expect(err).to.be.null;
+        done()
+      });
+    });
+    it('It should expire after an hour', (done) => {
+      jwt.verify(userToken, process.env.SECRET, {clockTimestamp: oneHourFromNow + 1}, (err, decoded) => {
+        expect(err).not.to.be.undefined;
+        expect(decoded).to.be.undefined;
+        done()
+      });
+    });
+  })
+
+
+  describe('User Login', () => {
     it('It Should Log the user in successfully when a valid credential is provided', done => {
         request(server)
         .post('/auth/login')

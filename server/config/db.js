@@ -17,6 +17,7 @@ const pool = new Pool({connectionString: DATABASE_URL});
 //     port: 5432,
 // });
 
-pool.on('connect', () => console.log('connected to the database'));
+// pool.on('connect', () => console.log('connected to the database'));
+pool.on('connect', () => 'connected');
 
 module.exports = pool;
