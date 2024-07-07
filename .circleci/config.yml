@@ -13,6 +13,8 @@ jobs:
           pkg-manager: npm
       - run:
           name: Run tests
+          environment: 
+            DATABASE_TEST_URL: DATABASE_TEST_URL
           command: npm test --passWithNoTests
 workflows:
   test:
