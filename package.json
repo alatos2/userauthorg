@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test && npm run db:migrations && npm run db:createUser && nyc mocha --timeout 10000 ./server/tests/*.js --require @babel/register --exit",
+    "test": "set NODE_ENV=test && npm run db:migrations && npm run db:createUser && nyc mocha --timeout 10000 ./server/tests/*.js --require @babel/register --exit",
     "db:createTables": "babel-node ./server/models/tables createTables",
     "db:dropTable": "babel-node ./server/models/migrations dropTables",
     "db:createUser": "babel-node ./server/models/migrations createUser",
