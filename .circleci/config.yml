@@ -2,7 +2,7 @@
 # Stacks detected: deps:node:.
 version: 2.1
 orbs:
-  node: circleci/node@5
+  node: circleci/node@5 
 jobs:
   test-node:
     # Install node dependencies and run tests
@@ -27,6 +27,8 @@ workflows:
   build-and-test:
     jobs:
       - test-node
+      - build:
+          context: context # has an env var called MY_ENV_VAR
     # - deploy:
     #     requires:
     #       - test-node
