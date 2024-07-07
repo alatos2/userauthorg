@@ -1,11 +1,5 @@
 version: 2.1
 
-workflows:
-  test-env-vars:
-    jobs:
-      - build:
-          context: context # has an env var called MY_ENV_VAR
-
 jobs:
   test-node:
     # Install node dependencies and run tests
