@@ -1,8 +1,11 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:node:.
 version: 2.1
-orbs:
-  node: circleci/node@5 
+
+workflows:
+  test-env-vars:
+    jobs:
+      - build:
+          context: context # has an env var called MY_ENV_VAR
+
 jobs:
   test-node:
     # Install node dependencies and run tests
@@ -14,21 +17,3 @@ jobs:
       - run:
           name: Run tests
           command: npm test --passWithNoTests
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
-workflows:
-  build-and-test:
-    jobs:
-      - test-node
-      - build:
-          context: context # has an env var called MY_ENV_VAR
-    # - deploy:
-    #     requires:
-    #       - test-node
