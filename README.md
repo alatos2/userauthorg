@@ -1,4 +1,3 @@
 ## User Authentication & Organisation
 
-# Template:
-[![tosins](https://circleci.com/gh/tosins/punkdatum/tree/main.svg?style=shield)](https://circleci.com/gh/circleci/circleci-docs/?branch=main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/MdicVqTRHeYVGGSiDanxqY/FxHgmLzv7qtUSWVwtHQm6C/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/MdicVqTRHeYVGGSiDanxqY/FxHgmLzv7qtUSWVwtHQm6C/tree/main)
