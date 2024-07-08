@@ -40,9 +40,9 @@ class User {
 }
 
     static getOrg(orgId, res) {
-        pool.connect((error, client, done) => {
-            client
-                .query('SELECT orgid, name, description FROM organisations WHERE orgid = $1', orgId)
+        // pool.connect((error, client, done) => {
+        //     client
+                pool.query('SELECT orgid, name, description FROM organisations WHERE orgid = $1', orgId)
                 .then(result => {
                     const org = result.rows[0];
                     if (org) {
@@ -70,13 +70,13 @@ class User {
                         "statusCode": 400
                 })
             })
-        })
+        // })
     }
 
     static getAllOrg(userId, res) {
-        pool.connect((error, client, done) => {
-            client
-                .query('SELECT orgId, name, description FROM organisations WHERE userid = $1', userId)
+        // pool.connect((error, client, done) => {
+            // client
+                pool.query('SELECT orgId, name, description FROM organisations WHERE userid = $1', userId)
                 .then(result => {
                     const org = result.rows;
                     if (org) {
@@ -103,14 +103,14 @@ class User {
                         "statusCode": 400
                 })
             })
-        })
+        // })
     }
 
     static createOrg(values, res) {
         const querystr = 'INSERT INTO organisations (orgId, name, description, userId) VALUES ($1, $2, $3, $4) RETURNING *';
-        pool.connect((error, client, done)=> {
-            client
-                .query(querystr, values)
+        // pool.connect((error, client, done)=> {
+        //     client
+                pool.query(querystr, values)
                 .then(result => {
                     const org = result.rows[0];
                     return res.status(201).json({
@@ -130,13 +130,13 @@ class User {
                         "statusCode": 400
                     })
                 })
-        })
+        // })
     }
 
     static getUser(userId, res) {
-        pool.connect((error, client, done) => {
-            client
-                .query('SELECT * FROM users WHERE userid = $1', userId)
+        // pool.connect((error, client, done) => {
+        //     client
+                pool.query('SELECT * FROM users WHERE userid = $1', userId)
                 .then(result => {
                     const user = result.rows[0];
                     if (user) {
@@ -166,7 +166,7 @@ class User {
                         "statusCode": 500
                 })
             })
-        })
+        // })
     }
 }
 

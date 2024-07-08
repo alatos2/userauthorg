@@ -10,17 +10,17 @@ const utils = require('../helpers/commons');
 class Auth {
     static createOrg(values) {
         const querystr = 'INSERT INTO organisations (orgId, name, description, userId) VALUES ($1, $2, $3, $4) RETURNING *';
-        pool.connect((error, client, done)=> {
-            client
-                .query(querystr, values)
-        })
+        // pool.connect((error, client, done)=> {
+        //     client
+                pool.query(querystr, values)
+        // })
     }
 
     static register(values, res) {
         const querystr = 'INSERT INTO users (userId, firstName, lastName, email, password, phone) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
-        pool.connect((error, client, done) => {
-            client
-                .query(querystr, values)
+        // pool.connect((error, client, done) => {
+        //     client
+                pool.query(querystr, values)
                 .then(result => {
                     const user = result.rows[0];
                     const userToken = utils.jwtToken({
@@ -53,13 +53,13 @@ class Auth {
                         'statusCode': 400
                     })
                 })
-        })
+        // })
     }
 
     static login(email, res, password) {
-        pool.connect((error, client, done) => {
-            client
-                .query('SELECT * FROM users WHERE email = $1', email)
+        // pool.connect((error, client, done) => {
+        //     client
+                pool.query('SELECT * FROM users WHERE email = $1', email)
                 .then(result => {
                     const user = result.rows[0];
                     if (!user) {
@@ -106,7 +106,7 @@ class Auth {
                         "statusCode": 500
                     })
                 })
-        })
+        // })
     }
 }
 
