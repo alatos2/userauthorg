@@ -25,6 +25,7 @@ class User {
 
             const orgQuery = await pool.query('INSERT INTO organisations (orgid,name,description,userid) VALUES ($1,$2,$3,$4) RETURNING *', [uuid.v4(), getUser1.name, getUser1.description, userId[0]]);
             const addOrg = orgQuery.rows[0];
+            console.log('Successful - POST /organisations/:orgId/users')
             return res.status(200).json({
                 'status': 'success',
                 'message': 'User added to organisation successfully'
@@ -46,6 +47,7 @@ class User {
                 .then(result => {
                     const org = result.rows[0];
                     if (org) {
+                        console.log('successful - GET /organisations/:orgId')
                         return res.status(200).json({
                             'status': 'success',
                             'message': 'Logged in user gets a single organisation record',
@@ -80,6 +82,7 @@ class User {
                 .then(result => {
                     const org = result.rows;
                     if (org) {
+                        console.log('successful - GET /organisations')
                         return res.status(200).json({
                             'status': 'success',
                             'message': 'All user organization',
@@ -112,6 +115,7 @@ class User {
         //     client
                 pool.query(querystr, values)
                 .then(result => {
+                    console.log('successful - POST /organisations')
                     const org = result.rows[0];
                     return res.status(201).json({
                         "status": "success",
@@ -136,21 +140,22 @@ class User {
     static getUser(userId, req, res) {
         // pool.connect((error, client, done) => {
         //     client
-                pool.query('SELECT * FROM users WHERE userid = $1', userId)
+                pool.query('SELECT * FROM organisations WHERE userid = $1', userId)
                 .then(result => {
-                    const user = result.rows[0];
-                    if (user) {
-                        const {userId} = req.decode
-                        if (userId == user.userid) {
+                    const userInOrg = result.rows[0];
+                    if (userInOrg) {
+                        const {userId,email,firstName,lastName,phone} = req.decode
+                        if (userId == userInOrg.userid) {
+                            console.log('successful - GET /users/:id')
                             return res.status(200).json({
                                 'status': 'success',
-                                'message': 'User record',
+                                'message': 'User record retrieved successfully',
                                 'data': {
-                                    'userId': user.userid,
-                                    'firstName': user.firstname,
-                                    'lastName': user.lastname,
-                                    'email': user.email,
-                                    'phone': user.phone
+                                    'userId': userId,
+                                    'firstName': firstName,
+                                    'lastName': lastName,
+                                    'email': email,
+                                    'phone': phone
                                 }
                             }) 
                         }  else {
@@ -169,6 +174,7 @@ class User {
                     }
                 })
                 .catch(e => {
+                    console.log(e)
                     return res.status(500).json({
                         "status": "Server error",
                         "message": "Internal server error",
