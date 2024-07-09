@@ -11,7 +11,7 @@ const uuid = require('uuid');
 const getUser = (req, res) => {
     const {id} = req.params;
     const userId = [id];
-    User.getUser(userId, res);
+    User.getUser(userId, req, res);
 }
 
 /**

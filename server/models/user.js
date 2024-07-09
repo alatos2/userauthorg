@@ -133,24 +133,33 @@ class User {
         // })
     }
 
-    static getUser(userId, res) {
+    static getUser(userId, req, res) {
         // pool.connect((error, client, done) => {
         //     client
                 pool.query('SELECT * FROM users WHERE userid = $1', userId)
                 .then(result => {
                     const user = result.rows[0];
                     if (user) {
-                        return res.status(200).json({
-                            'status': 'success',
-                            'message': 'User record',
-                            'data': {
-                                'userId': user.userid,
-                                'firstName': user.firstname,
-                                'lastName': user.lastname,
-                                'email': user.email,
-                                'phone': user.phone
-                            }
-                        })   
+                        const {userId} = req.decode
+                        if (userId == user.userid) {
+                            return res.status(200).json({
+                                'status': 'success',
+                                'message': 'User record',
+                                'data': {
+                                    'userId': user.userid,
+                                    'firstName': user.firstname,
+                                    'lastName': user.lastname,
+                                    'email': user.email,
+                                    'phone': user.phone
+                                }
+                            }) 
+                        }  else {
+                            return res.status(401).json({
+                                "status": "Bad request",
+                                "message": "User is not in organization",
+                                "statusCode": 401
+                            })
+                        }
                     } else {
                         return res.status(401).json({
                             "status": "Bad request",
