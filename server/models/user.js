@@ -159,17 +159,17 @@ class User {
                                 }
                             }) 
                         }  else {
-                            return res.status(401).json({
+                            return res.status(400).json({
                                 "status": "Bad request",
                                 "message": "User is not in organization",
-                                "statusCode": 401
+                                "statusCode": 400
                             })
                         }
                     } else {
-                        return res.status(401).json({
+                        return res.status(400).json({
                             "status": "Bad request",
                             "message": "Incorrect userId",
-                            "statusCode": 401
+                            "statusCode": 400
                         })
                     }
                 })
