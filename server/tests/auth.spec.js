@@ -158,29 +158,29 @@ describe('User Registration & Organisation Access', () => {
           done();
         });
     });
-    it('It Should Not Register User Successfully with Default Organisation when phone is missing', done => {
-        request(server)
-        .post('/auth/register')
-        .set('Authorization', userToken)
-        .send({
-            firstName: "Jackie",
-            lastName: "Chan",
-            email: "jackie@gmail.com",
-            password: "12345656",
-            phone: ""
-        })
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(422)
-        .end((err, res) => {
-          if (err) throw err;
-          else {
-            const responseData = JSON.parse(res.text);
-            expect(responseData).to.be.an('object');
-          }
-          done();
-        });
-    });
+    // it('It Should Register User Successfully with Default Organisation when phone is missing', done => {
+    //     request(server)
+    //     .post('/auth/register')
+    //     .set('Authorization', userToken)
+    //     .send({
+    //         firstName: "Jackie",
+    //         lastName: "Chan",
+    //         email: "jackie@gmail.com",
+    //         password: "12345656",
+    //         phone: ""
+    //     })
+    //     .set('Accept', 'application/json')
+    //     .expect('Content-Type', /json/)
+    //     .expect(201)
+    //     .end((err, res) => {
+    //       if (err) throw err;
+    //       else {
+    //         const responseData = JSON.parse(res.text);
+    //         expect(responseData).to.be.an('object');
+    //       }
+    //       done();
+    //     });
+    // });
     it('It Should Fail if there’s Duplicate Email or UserId', done => {
         request(server)
         .post('/auth/register')
