@@ -36,7 +36,7 @@ class Auth {
                         'data': {
                             'accessToken': userToken,
                             'user': {
-                                'userId': user.userId,
+                                'userId': user.userid,
                                 'firstName': user.firstname,
                                 'lastName': user.lastname,
                                 'email': user.email,
@@ -83,7 +83,7 @@ class Auth {
                             'data': {
                                 'accessToken': userToken,
                                 'user': {
-                                    'userId': user.userId,
+                                    'userId': user.userid,
                                     'firstName': user.firstname,
                                     'lastName': user.lastname,
                                     'email': user.email,
