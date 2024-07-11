@@ -8,6 +8,6 @@ userRoute.get('/users/:id', authentication, getUser);
 userRoute.post('/organisations', authentication, createOrg);
 userRoute.get('/organisations', authentication, getAllOrg);
 userRoute.get('/organisations/:orgId', authentication, getOrg);
-userRoute.post('/organisations/:orgId/users', authentication, addUserToOrg);
+userRoute.post('/organisations/:orgId/users', addUserToOrg);
 
 module.exports = userRoute;
